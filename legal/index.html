@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fenix24 | Cybersecurity for Law Firms</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --flame: #bd5b31; --flame-dark: #a04926; --flame-glow: rgba(189,91,49,0.25);
+    --gold: #f4c12e; --gold-dark: #d4a520; --gold-glow: rgba(244,193,46,0.3);
+    --dark: #0A0C0F; --dark2: #111418; --dark3: #181C22; --dark4: #1F252D;
+    --border: rgba(255,255,255,0.08); --text: #E8EAF0; --muted: #8A90A0; --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(10,12,15,0.9); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon {
+    width: 38px; height: 38px; background: var(--flame);
+    clip-path: polygon(50% 0%, 85% 25%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 15% 25%);
+    box-shadow: 0 0 20px var(--flame-glow);
+  }
+  .logo-text { font-size: 22px; font-weight: 800; color: var(--white); letter-spacing: 1px; }
+  .logo-text span { color: var(--flame); }
+  .nav-podcast {
+    color: var(--flame); font-size: 14px; font-weight: 700; text-decoration: none;
+    letter-spacing: 0.3px; transition: opacity 0.2s; margin-right: 8px;
+  }
+  .nav-podcast span { font-weight: 400; color: var(--muted); font-size: 13px; }
+  .nav-podcast:hover { opacity: 0.8; }
+  .nav-cta {
+    background: var(--gold); color: var(--dark); padding: 10px 24px; border-radius: 4px;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+    box-shadow: 0 0 20px var(--gold-glow); transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; padding: 140px 60px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(232,75,26,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--flame), transparent);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,75,26,0.1); border: 1px solid rgba(232,75,26,0.3);
+    color: var(--flame); font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 24px;
+  }
+  .eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--flame); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .hero h1 { font-size: clamp(34px, 3.8vw, 54px); font-weight: 900; line-height: 1.1; margin-bottom: 24px; color: var(--white); }
+  .hero h1 .accent { color: var(--flame); }
+  .hero p { font-size: 17px; color: var(--muted); margin-bottom: 36px; line-height: 1.7; max-width: 520px; }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--dark); padding: 14px 32px; border-radius: 4px;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+    box-shadow: 0 0 30px var(--gold-glow); transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--white); padding: 14px 32px; border-radius: 4px;
+    border: 1px solid var(--border); font-weight: 600; font-size: 15px;
+    text-decoration: none; transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--flame); color: var(--flame); }
+
+  /* VIDEO CARD */
+  .video-card {
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(232,75,26,0.08);
+    position: relative;
+  }
+  .podcast-badge {
+    position: absolute; top: 16px; right: 16px; z-index: 2;
+    background: var(--flame); color: white;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 2px;
+  }
+  .video-embed {
+    width: 100%; aspect-ratio: 16/9; background: #000; display: block;
+    position: relative;
+  }
+  .video-embed iframe { width: 100%; height: 100%; border: none; display: block; }
+  /* Placeholder until real embed URL */
+  .video-placeholder {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0d0f12 0%, #1a1f28 50%, #0f1318 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; position: relative; overflow: hidden; cursor: pointer;
+  }
+  .video-placeholder::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(232,75,26,0.18), transparent 70%);
+  }
+  .play-btn {
+    width: 76px; height: 76px; border-radius: 50%; background: var(--flame);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 50px rgba(232,75,26,0.5); transition: all 0.2s; position: relative; z-index: 1;
+  }
+  .play-btn:hover { transform: scale(1.1); }
+  .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
+  .video-placeholder-text { font-size: 13px; color: var(--muted); position: relative; z-index: 1; letter-spacing: 1px; }
+  .video-body { padding: 24px; }
+  .episode-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--flame); margin-bottom: 8px; }
+  .video-title { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+  .video-synopsis { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .host-row { display: flex; align-items: center; gap: 14px; }
+  .host-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--flame), #ff8c00);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; color: white; flex-shrink: 0;
+  }
+  .host-info p { font-size: 13px; font-weight: 600; color: var(--white); }
+  .host-info span { font-size: 12px; color: var(--muted); }
+
+  /* WHAT JOHN COVERS */
+  .covers-section {
+    background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 80px 60px;
+  }
+  .covers-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--flame); margin-bottom: 14px; }
+  .covers-section h2 { font-size: clamp(26px, 2.8vw, 40px); font-weight: 900; color: var(--white); margin-bottom: 12px; }
+  .covers-section .sub { font-size: 16px; color: var(--muted); max-width: 680px; line-height: 1.8; margin-bottom: 48px; }
+  .topics-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+  .topic-card {
+    display: flex; align-items: flex-start; gap: 18px;
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 10px;
+    padding: 24px; transition: border-color 0.2s, transform 0.2s;
+  }
+  .topic-card:hover { border-color: rgba(232,75,26,0.35); transform: translateY(-2px); }
+  .topic-num {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(232,75,26,0.12); border: 1px solid rgba(232,75,26,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: var(--flame);
+  }
+  .topic-card h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .topic-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* STATS */
+  .stats {
+    background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 60px;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 40px;
+  }
+  .stat { text-align: center; }
+  .stat-number { font-size: 42px; font-weight: 900; color: var(--flame); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 14px; color: var(--muted); }
+
+  /* ABOUT JOHN */
+  .about-john {
+    padding: 100px 60px; background: var(--dark2);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .about-john-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 340px 1fr; gap: 70px; align-items: start; }
+  .john-photo-wrap { display: flex; flex-direction: column; gap: 20px; }
+  .john-photo {
+    width: 100%; aspect-ratio: 3/4; border-radius: 12px;
+    background: var(--dark3); border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    position: relative; overflow: hidden;
+  }
+  .john-photo::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+    background: linear-gradient(to top, rgba(232,75,26,0.15), transparent);
+  }
+  .john-photo-icon { font-size: 64px; opacity: 0.25; }
+  .john-photo-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-align: center; padding: 0 20px; }
+  .john-photo-badge {
+    position: absolute; bottom: 16px; left: 16px; right: 16px;
+    background: rgba(10,12,15,0.9); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .john-photo-badge p { font-size: 14px; font-weight: 700; color: var(--white); }
+  .john-photo-badge span { font-size: 12px; color: var(--flame); }
+  .john-bio h2 { font-size: clamp(26px, 2.5vw, 38px); font-weight: 900; color: var(--white); margin-bottom: 8px; }
+  .john-bio .title-tag {
+    display: inline-block; background: rgba(232,75,26,0.1); border: 1px solid rgba(232,75,26,0.25);
+    color: var(--flame); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    padding: 4px 12px; border-radius: 2px; margin-bottom: 24px;
+  }
+  .john-bio p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 16px; }
+  .john-credentials { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+  .cred {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: var(--text);
+  }
+  .cred-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--flame); flex-shrink: 0; }
+
+  /* ABOUT FENIX24 */
+  .about-fenix {
+    padding: 100px 60px; background: var(--dark);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-fenix-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+  .about-fenix h2 { font-size: clamp(26px, 2.5vw, 40px); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 20px; }
+  .about-fenix h2 .accent { color: var(--flame); }
+  .about-fenix p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-bottom: 16px; }
+  .fenix-pillars { display: flex; flex-direction: column; gap: 16px; }
+  .pillar {
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 10px;
+    padding: 22px 24px; display: flex; align-items: flex-start; gap: 16px;
+    transition: border-color 0.2s;
+  }
+  .pillar:hover { border-color: rgba(232,75,26,0.3); }
+  .pillar-icon {
+    width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(232,75,26,0.1); border: 1px solid rgba(232,75,26,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .pillar h4 { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* THREAT SECTION */
+  .threat-section { padding: 100px 60px; background: var(--dark2); border-bottom: 1px solid var(--border); }
+  .threat-section-inner { max-width: 1100px; margin: 0 auto; }
+  .threat-section h2 { font-size: clamp(26px, 2.8vw, 42px); font-weight: 900; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+  .threat-section h2 .accent { color: var(--flame); }
+  .threat-section .sub { font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 700px; margin-bottom: 56px; }
+  .threat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .threat-card {
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 10px;
+    padding: 30px; position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .threat-card:hover { border-color: rgba(232,75,26,0.4); transform: translateY(-4px); }
+  .threat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--flame), transparent); opacity: 0; transition: opacity 0.3s;
+  }
+  .threat-card:hover::before { opacity: 1; }
+  .threat-icon {
+    width: 46px; height: 46px; border-radius: 8px;
+    background: rgba(232,75,26,0.1); border: 1px solid rgba(232,75,26,0.2);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px; font-size: 20px;
+  }
+  .threat-card h3 { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .threat-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+  /* EVENTS */
+  .events-section { padding: 100px 60px; background: var(--dark); border-bottom: 1px solid var(--border); }
+  .events-inner { max-width: 1100px; margin: 0 auto; }
+  .events-section h2 { font-size: clamp(26px, 2.8vw, 42px); font-weight: 900; color: var(--white); margin-bottom: 12px; }
+  .events-section h2 .accent { color: var(--flame); }
+  .events-section .sub { font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 650px; margin-bottom: 56px; }
+  .events-timeline { display: flex; flex-direction: column; gap: 0; }
+  .event-item {
+    display: grid; grid-template-columns: 160px 1fr;
+    position: relative;
+  }
+  .event-item:not(:last-child) .event-line::after {
+    content: ''; position: absolute; top: 40px; left: 79px; bottom: -1px; width: 2px;
+    background: linear-gradient(to bottom, rgba(232,75,26,0.4), rgba(232,75,26,0.05));
+  }
+  .event-date-col { display: flex; flex-direction: column; align-items: flex-end; padding-right: 30px; padding-top: 8px; position: relative; }
+  .event-date-col .event-line { position: relative; }
+  .event-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--flame); border: 3px solid var(--dark);
+    box-shadow: 0 0 12px var(--flame-glow);
+    position: absolute; right: -37px; top: 4px;
+  }
+  .event-month { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--flame); }
+  .event-dates { font-size: 22px; font-weight: 900; color: var(--white); line-height: 1; }
+  .event-year { font-size: 12px; color: var(--muted); }
+  .event-body {
+    padding: 0 0 52px 44px;
+  }
+  .event-card {
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 10px;
+    padding: 28px 30px; transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .event-card:hover { border-color: rgba(232,75,26,0.35); transform: translateX(4px); }
+  .event-card::before {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px;
+    background: var(--flame); border-radius: 2px 0 0 2px;
+  }
+  .event-tag {
+    display: inline-block; background: rgba(232,75,26,0.1); border: 1px solid rgba(232,75,26,0.25);
+    color: var(--flame); font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 2px; margin-bottom: 10px;
+  }
+  .event-name { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+  .event-detail { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .event-tbd {
+    display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    color: var(--muted); font-size: 10px; font-weight: 600; letter-spacing: 1px;
+    padding: 2px 8px; border-radius: 2px; margin-left: 8px;
+  }
+  .events-cta { margin-top: 48px; text-align: center; }
+  .events-cta p { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
+
+  /* PODCAST ARCHIVE */
+  .archive-section { padding: 100px 60px; background: var(--dark); border-bottom: 1px solid var(--border); }
+  .archive-inner { max-width: 1100px; margin: 0 auto; }
+  .archive-section h2 { font-size: clamp(26px, 2.8vw, 40px); font-weight: 900; color: var(--white); margin-bottom: 12px; }
+  .archive-sub { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 620px; margin-bottom: 48px; }
+  .archive-track-wrap { position: relative; display: flex; align-items: center; gap: 16px; }
+  .archive-track {
+    display: flex; gap: 24px; overflow: hidden; scroll-behavior: smooth;
+    flex: 1; /* hide scrollbar */ -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .archive-track::-webkit-scrollbar { display: none; }
+  .archive-arrow {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--dark3); border: 1px solid var(--border);
+    color: var(--white); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; z-index: 2;
+  }
+  .archive-arrow:hover { background: var(--flame); border-color: var(--flame); }
+  .ep-card {
+    flex: 0 0 calc((100% - 48px) / 3);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .ep-title { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.3; min-height: 40px; }
+  .ep-thumb {
+    width: 100%; aspect-ratio: 16/9; border-radius: 8px;
+    background: linear-gradient(135deg, #0d0f12 0%, #1c2130 50%, #0f1318 100%);
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .ep-thumb:hover { border-color: rgba(189,91,49,0.5); }
+  .ep-thumb::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(189,91,49,0.15), transparent 70%);
+  }
+  .ep-thumb--coming { cursor: default; }
+  .ep-thumb--coming::before { background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03), transparent 70%); }
+  .ep-play {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--flame);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 30px var(--flame-glow); position: relative; z-index: 1;
+    transition: transform 0.2s;
+  }
+  .ep-thumb:hover .ep-play { transform: scale(1.1); }
+  .ep-play svg { width: 22px; height: 22px; fill: white; margin-left: 3px; }
+  .ep-coming-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--muted);
+    position: relative; z-index: 1;
+  }
+  .ep-num {
+    position: absolute; top: 10px; left: 12px;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--gold); background: rgba(10,12,15,0.7);
+    padding: 3px 8px; border-radius: 2px;
+  }
+  .ep-summary { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+  .ep-cta {
+    font-size: 13px; font-weight: 700; color: var(--gold);
+    text-decoration: none; transition: opacity 0.2s; display: inline-block;
+  }
+  .ep-cta:hover { opacity: 0.75; }
+
+  @media (max-width: 960px) {
+    .archive-section { padding: 60px 20px; }
+    .ep-card { flex: 0 0 80%; }
+  }
+
+  /* CONTACT FORM */
+  .contact-section {
+    background: var(--dark2); border-top: 1px solid var(--border);
+    padding: 100px 60px; position: relative; overflow: hidden;
+  }
+  .contact-section::before {
+    content: ''; position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,75,26,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .contact-section h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 900; color: var(--white); margin-bottom: 12px; }
+  .contact-section h2 .accent { color: var(--flame); }
+  .contact-section .sub { font-size: 17px; color: var(--muted); margin-bottom: 48px; line-height: 1.7; }
+  .urgency-bar {
+    background: rgba(232,75,26,0.08); border: 1px solid rgba(232,75,26,0.2);
+    border-radius: 6px; padding: 12px 16px; margin-bottom: 28px; text-align: left;
+    font-size: 14px; color: var(--flame); font-weight: 500;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr; gap: 16px; text-align: left; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .form-group input, .form-group select, .form-group textarea {
+    background: var(--dark4); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px 16px; color: var(--white); font-size: 15px; font-family: inherit;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--flame); box-shadow: 0 0 0 3px rgba(232,75,26,0.12);
+  }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); }
+  .submit-btn {
+    width: 100%; background: var(--gold); color: var(--dark); border: none; border-radius: 6px;
+    padding: 16px; font-size: 17px; font-weight: 700; cursor: pointer;
+    font-family: inherit; transition: all 0.2s; box-shadow: 0 0 30px var(--gold-glow);
+  }
+  .submit-btn:hover { background: var(--gold-dark); transform: translateY(-1px); }
+  .form-note { font-size: 12px; color: var(--muted); margin-top: 14px; }
+  .form-success { display: none; text-align: center; padding: 60px 20px; }
+  .form-success .check { font-size: 48px; margin-bottom: 16px; }
+  .form-success h3 { font-size: 24px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+  .form-success p { color: var(--muted); font-size: 16px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); border-top: 1px solid var(--border);
+    padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer p { font-size: 13px; color: var(--muted); }
+  footer a { color: var(--flame); text-decoration: none; }
+
+  .flame-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--flame), transparent); }
+
+  @media (max-width: 960px) {
+    nav { padding: 16px 20px; }
+    .hero { grid-template-columns: 1fr; padding: 120px 20px 60px; gap: 40px; }
+    .hero::before { display: none; }
+    .stats { grid-template-columns: repeat(2,1fr); padding: 48px 20px; }
+    .covers-section, .about-john, .about-fenix, .threat-section, .events-section, .contact-section { padding: 60px 20px; }
+    .topics-grid { grid-template-columns: 1fr; }
+    .about-john-inner { grid-template-columns: 1fr; gap: 36px; }
+    .john-photo { aspect-ratio: 4/3; }
+    .about-fenix-inner { grid-template-columns: 1fr; gap: 40px; }
+    .threat-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 120px 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img width="100" src="../img/fenix24.png" alt="Fenix24 Logo">
+  </a>
+  <div style="display:flex; align-items:center; gap:30px;">
+    <a href="#podcast" class="nav-podcast">BREACH POINT: <span>a Fenix24 Podcast</span></a>
+    <a href="#contact" class="nav-cta">Get a Free Assessment</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Cyber Breach Recovery</div>
+    <h1>Your Clients' Secrets Are Someone Else's <span class="accent">Ransom.</span></h1>
+    <p>Law firms hold the most sensitive data in existence — and they're the most underprepared. Fenix24 is the battle-tested cybersecurity partner built to help you survive, recover, and protect what matters most.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Has Your Firm Been Compromised?</a>
+      <a href="#podcast" class="btn-secondary">Watch Episode 1 ↓</a>
+    </div>
+  </div>
+
+  <!-- VIDEO CARD -->
+  <div class="video-card" id="podcast">
+    <div class="podcast-badge">🎙 EPISODE 1 · NOW LIVE</div>
+    <!-- Replace src with your actual video embed URL e.g. YouTube, Vimeo, Wistia -->
+    <div class="video-placeholder" onclick="this.innerHTML='<iframe src=\'YOUR_VIDEO_EMBED_URL\' allow=\'autoplay; fullscreen\' allowfullscreen></iframe>'; this.style.padding='0';">
+      <div class="play-btn">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="video-placeholder-text">CLICK TO PLAY · FENIX24 PODCAST EP. 1</div>
+			<img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="Episode 1 Thumbnail" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+
+    </div>
+    <div class="video-body">
+      <div class="episode-label">The Fenix24 Podcast · Episode 1</div>
+      <div class="video-title">Is Your Law Firm Actually Safe?</div>
+      <div class="video-synopsis">Cybersecurity expert John Anthony Smith delivers a candid, eye-opening look at why law firms have become prime targets for ransomware actors — and why most firms don't know it yet. From the economics of modern attacks to real threat groups like Scattered Spider and Akira, this is essential viewing for every managing partner and firm administrator.</div>
+      <div class="host-row">
+        <div class="host-avatar">JS</div>
+        <div class="host-info">
+          <p>John Anthony Smith</p>
+          <span>CSO & Co-founder, Fenix24</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT JOHN COVERS -->
+<section class="covers-section">
+  <div class="covers-inner">
+    <div class="section-label">What You'll Learn</div>
+    <h2>What John Covers in This Episode</h2>
+    <p class="sub">This episode is for managing partners, firm administrators, and anyone responsible for protecting client trust. Because in the legal world, your reputation is your business — and threat actors know it.</p>
+    <div class="topics-grid">
+      <div class="topic-card">
+        <div class="topic-num">01</div>
+        <div>
+          <h4>The Economics of Ransomware</h4>
+          <p>Why ransoms are reaching into the millions — and why law firms are worth targeting even at smaller volumes than enterprise targets. The numbers will surprise you.</p>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-num">02</div>
+        <div>
+          <h4>The One Thing Everyone Gets Wrong</h4>
+          <p>The single most common mistake John sees across organizations — from weak identity verification at the help desk to overcrowded active directories hiding in plain sight.</p>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-num">03</div>
+        <div>
+          <h4>Real Threat Groups, Real Risk</h4>
+          <p>Scattered Spider, Akira, and others — who they are, how they operate, and why they specifically target professional services firms. Akira alone is Fenix24's #1 breach pattern.</p>
+        </div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-num">04</div>
+        <div>
+          <h4>Building Something Survivable</h4>
+          <p>John's answer isn't panic — it's preparation. What it means to build a resilient firm, operate with the right mindset, and why a security assessment is the critical first step.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-number">$4.7M</div><div class="stat-label">Average ransom demand targeting law firms</div></div>
+  <div class="stat"><div class="stat-number">29%</div><div class="stat-label">Of law firms have experienced a cyberattack</div></div>
+  <div class="stat"><div class="stat-number">30+</div><div class="stat-label">Years of cybersecurity expertise</div></div>
+  <div class="stat"><div class="stat-number">1998</div><div class="stat-label">Year John began serving law firms' security needs</div></div>
+</div>
+
+<!-- ABOUT JOHN -->
+<section class="about-john">
+  <div class="about-john-inner">
+    <div class="john-photo-wrap">
+      <div class="john-photo">
+       <img src="../img/JAS_HS.jpg" alt="John Anthony Smith" style="width:100%; height:100%; object-fit:cover;">
+        <div class="john-photo-badge">
+          <p>John Anthony Smith</p>
+          <span>CSO & Co-founder, Fenix24</span>
+        </div>
+      </div>
+    </div>
+    <div class="john-bio">
+      <div class="section-label">Meet the Expert</div>
+      <h2>John Anthony Smith</h2>
+      <div class="title-tag">Chief Security Officer & Co-founder</div>
+      <p>John Anthony Smith has spent over 30 years at the intersection of technology, security, and human-centered business. He founded Conversant Group in July 2009, which evolved into Fenix24 — the World's First Civilian Cybersecurity Force — driven by his passion for building organizations that serve people first.</p>
+      <p>What sets John apart isn't just his technical depth — it's that he understands the practice of law. He has served law firms' technological and business needs <strong style="color:var(--white);">since 1998</strong>, giving him an intimate understanding of the unique vulnerabilities, ethical obligations, and reputational stakes that make legal organizations such high-value targets.</p>
+      <p>His career began in 1994 at age 14, where he was involved in the initial rollout of industry-leading technologies including Citrix Winframe, Windows NT, and early Internet infrastructure. He founded his first company, Computech, in 1996 — and hasn't stopped building since.</p>
+      <div class="john-credentials">
+        <div class="cred"><div class="cred-dot"></div>B.S. Organizational Management, Covenant College, Lookout Mountain, GA</div>
+        <div class="cred"><div class="cred-dot"></div>Computer Science studies, University of Tennessee at Chattanooga</div>
+        <div class="cred"><div class="cred-dot"></div>Founded Computech (1996), NetAlliant Technologies (2002, sold 2008), Conversant Group / Fenix24 (2009)</div>
+        <div class="cred"><div class="cred-dot"></div>Serving law firms' security needs since 1998</div>
+        <div class="cred"><div class="cred-dot"></div>Clients across North America, Europe, and beyond</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT FENIX24 -->
+<section class="about-fenix">
+  <div class="about-fenix-inner">
+    <div>
+      <div class="section-label">About the Firm</div>
+      <h2>The World's First Civilian <span class="accent">Cybersecurity Force.</span></h2>
+      <p>Fenix24 is a cybersecurity firm specializing in disaster recovery and breach response. Built out of Chattanooga, Tennessee, we work across industries to help organizations build resilient, survivable systems — before and after an attack.</p>
+      <p>We don't just respond to crises. We help you build systems that can withstand them. Our approach is human-centric, battle-tested, and built on more than three decades of real-world cybersecurity experience across North America, Europe, and beyond.</p>
+      <p>For law firms specifically, we understand your world — the privilege, the pressure, and the professional obligations. We're not a generic IT vendor. We are a specialized force purpose-built for what you're actually facing.</p>
+      <a href="#contact" class="btn-primary" style="margin-top:12px;">Talk to Fenix24 →</a>
+    </div>
+    <div class="fenix-pillars">
+      <div class="pillar">
+        <div>
+          <h4>Breach Response & Recovery</h4>
+          <p>When ransomware hits, every hour matters. Fenix24 deploys fast, contains the damage, and gets you operational while protecting your clients and your reputation.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div>
+          <h4>Security Assessments</h4>
+          <p>Know where you stand before a threat actor shows you. Our assessments surface the vulnerabilities hiding in plain sight across your identity, infrastructure, and access controls.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div>
+          <h4>Resilient Architecture</h4>
+          <p>We help you build systems designed to survive an attack, not just resist one. The goal is not perfection. It is survivability.</p>
+        </div>
+      </div>
+      <div class="pillar">
+        <div>
+          <h4>Law Firm Specialization</h4>
+          <p>We understand bar obligations, client confidentiality, and the reputational stakes unique to legal practices. This is purpose-built protection, not generic advice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY LAW FIRMS -->
+<section class="threat-section">
+  <div class="threat-section-inner">
+    <div class="section-label">Why Law Firms Are Targeted</div>
+    <h2>Your Reputation Is Your Practice.<br><span class="accent">Threat Actors Know That.</span></h2>
+    <p class="sub">Law firms hold some of the most sensitive data in existence — M&A transactions, litigation strategy, privileged communications, client secrets. You have every incentive to pay quietly and move on. That's exactly why you're at the top of every threat list.</p>
+    <div class="threat-grid">
+      <div class="threat-card">
+        <h3>Privileged Data Equals High-Value Target</h3>
+        <p>Attorney-client privilege does not stop ransomware. The same confidentiality that makes your work valuable makes it extraordinarily attractive to organized threat actors willing to weaponize it.</p>
+      </div>
+      <div class="threat-card">
+        <h3>The Economics of Silence</h3>
+        <p>Law firms pay ransoms quietly to avoid reputational damage. Cybercriminals know this. Your incentive to move on fast becomes their leverage to demand more.</p>
+      </div>
+      <div class="threat-card">
+        <h3>Scattered Spider and Akira</h3>
+        <p>These are not faceless risks. Groups like Akira represent Fenix24's number one breach pattern. They are organized, motivated, and specifically hunting professional services firms like yours.</p>
+      </div>
+      <div class="threat-card">
+        <h3>Identity and Help Desk Exploits</h3>
+        <p>The most common vulnerability is weak identity verification. Attackers social-engineer their way in through your own IT help desk before you even know an attack has started.</p>
+      </div>
+      <div class="threat-card">
+        <h3>Overcrowded Active Directories</h3>
+        <p>Years of onboarding without cleanup leaves your Active Directory littered with stale accounts. Each one is an open door. These vulnerabilities are hiding in plain sight right now.</p>
+      </div>
+      <div class="threat-card">
+        <h3>Ethical and Disciplinary Exposure</h3>
+        <p>Bar rules require firms to protect client data. A breach does not just cost money. It triggers disciplinary risk, malpractice exposure, and client defection you may never fully recover from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS / SPEAKING -->
+<section class="events-section">
+  <div class="events-inner">
+    <div class="section-label">Catch John Live</div>
+    <h2>John Anthony Smith:<br><span class="accent">Upcoming Speaking Events</span></h2>
+    <p class="sub">John isn't just talking about cybersecurity — he's taking the conversation directly to the industry stages where it matters most. Catch him live, or meet with the Fenix24 team at these upcoming events.</p>
+
+    <div class="events-timeline">
+
+      <!-- N2K CyberWire -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">Ongoing</div>
+            <div class="event-dates">2025</div>
+            <div class="event-year">–2026</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Podcast · Media</div>
+            <div class="event-name">N2K CyberWire Podcast</div>
+            <div class="event-detail">John joins the N2K CyberWire network — one of the most listened-to cybersecurity news platforms in the industry — for a conversation on the evolving threat landscape and what organizations must do to stay survivable. <span class="event-tbd">Episode Date TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSA / Media Outlets -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">APR – MAY</div>
+            <div class="event-dates">2026</div>
+            <div class="event-year">San Francisco, CA</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Conference · Media</div>
+            <div class="event-name">RSA Conference 2026 — Media Appearances</div>
+            <div class="event-detail">RSA Conference is the world's leading cybersecurity event. John will be participating in media outlet appearances and conversations on the floor at RSA 2026. <span class="event-tbd">Dates TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ILTA Evolve -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">TBD 2026</div>
+            <div class="event-dates">ILTA</div>
+            <div class="event-year">Evolve</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Legal Tech · Conference</div>
+            <div class="event-name">ILTA Evolve</div>
+            <div class="event-detail">The International Legal Technology Association's premier event brings together legal IT professionals and firm leaders. John will be speaking directly to the legal community on cybersecurity risk, breach preparedness, and what law firms must do differently. <span class="event-tbd">Date TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ISACA -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">TBD 2026</div>
+            <div class="event-dates">ISACA</div>
+            <div class="event-year">North America</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Governance · Risk · Compliance</div>
+            <div class="event-name">ISACA North America Conference</div>
+            <div class="event-detail">ISACA's North America conference brings together thousands of IT governance, risk, and compliance professionals. John will be sharing Fenix24's frontline perspective on modern threat groups, breach recovery, and building survivable organizations. <span class="event-tbd">Date TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="events-cta">
+      <p>Want to connect with John or the Fenix24 team at an upcoming event? Reach out below.</p>
+      <a href="#contact" class="btn-primary">Request a Meeting at an Event →</a>
+    </div>
+  </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- PODCAST ARCHIVE — set SHOW_PODCAST_ARCHIVE = false to hide this section -->
+<section class="archive-section" id="podcastArchive">
+  <div class="archive-inner">
+    <div class="section-label">All Episodes</div>
+    <h2>BREACH POINT: <span class="accent">Episode Archive</span></h2>
+    <p class="archive-sub">Straight-talking conversations about cybersecurity, risk, and what it really takes to protect your organization in today's threat landscape.</p>
+
+    <div class="archive-track-wrap">
+      <button class="archive-arrow left" onclick="scrollArchive(-1)" aria-label="Previous">&#8592;</button>
+      <div class="archive-track" id="archiveTrack">
+
+        <!-- EPISODE CARDS — duplicate or add new cards here as episodes are published -->
+        <div class="ep-card">
+          <div class="ep-title">Is Your Law Firm Actually Safe?</div>
+          <div class="ep-thumb">
+            <div class="ep-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="ep-num">EP. 01</div>
+						<img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="Episode 1 Thumbnail" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+          </div>
+          <div class="ep-summary">John Anthony Smith reveals why law firms have become the most targeted and most underprepared organizations in today's ransomware landscape.</div>
+          <a href="#podcast" class="ep-cta">Watch Podcast Now &#8594;</a>
+        </div>
+
+        <div class="ep-card">
+          <div class="ep-title">Coming Soon</div>
+          <div class="ep-thumb ep-thumb--coming">
+            <div class="ep-coming-label">COMING SOON</div>
+            <div class="ep-num">EP. 02</div>
+          </div>
+          <div class="ep-summary">The next episode of Breach Point is in production. Subscribe to be notified when it drops.</div>
+          <a href="#contact" class="ep-cta">Get Notified &#8594;</a>
+        </div>
+
+        <div class="ep-card">
+          <div class="ep-title">Coming Soon</div>
+          <div class="ep-thumb ep-thumb--coming">
+            <div class="ep-coming-label">COMING SOON</div>
+            <div class="ep-num">EP. 03</div>
+          </div>
+          <div class="ep-summary">More conversations on breach recovery, threat actor tactics, and building survivable organizations are on the way.</div>
+          <a href="#contact" class="ep-cta">Get Notified &#8594;</a>
+        </div>
+
+      </div><!-- end archive-track -->
+      <button class="archive-arrow right" onclick="scrollArchive(1)" aria-label="Next">&#8594;</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="text-align:center;">Free Confidential Assessment</div>
+    <h2>Is Your Firm <span class="accent">Actually Safe?</span></h2>
+    <p class="sub">Don't wait to find out the hard way. Our team will assess your firm's current security posture, surface the vulnerabilities hiding in plain sight, and give you a clear picture of where you stand — before a threat actor does it for you.</p>
+
+    <div class="urgency-bar">⚠ Active ransomware groups are currently targeting law firms. The best time to assess your exposure is before a breach — not during one.</div>
+
+    <div id="contactForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Smith" />
+        </div>
+        <div class="form-group">
+          <label>Firm Name *</label>
+          <input type="text" id="firm" placeholder="Smith & Associates LLP" />
+        </div>
+        <div class="form-group">
+          <label>Business Email *</label>
+          <input type="email" id="email" placeholder="jane@smithlaw.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="(555) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>Urgency</label>
+          <select id="urgency">
+            <option value="" disabled selected>How urgent is this?</option>
+            <option>We've experienced an incident</option>
+            <option>We suspect a breach</option>
+            <option>Proactive — want to be prepared</option>
+            <option>Evaluating options</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>What's your biggest security concern?</label>
+          <textarea id="concern" placeholder="e.g. We recently had a phishing attempt, we're unsure about our current IT setup, a partner wants to review our security posture..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Request My Confidential Assessment →</button>
+      <p class="form-note">🔒 Your information is strictly confidential. A Fenix24 specialist will contact you within one business day.</p>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div class="check">🔥</div>
+      <h3>You're in good hands.</h3>
+      <p>Thank you. A Fenix24 cybersecurity specialist will reach out within one business day to schedule your confidential assessment. In the meantime, watch Episode 1 of the Fenix24 podcast to understand exactly what you may be up against.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">
+		<img width="100" src="../img/fenix24.png" alt="Fenix24 Logo">
+  </a>
+  <p>© 2026 Fenix24. All rights reserved. | <a href="https://fenix24.com" target="_blank">fenix24.com</a></p>
+  <p style="font-size:12px;color:var(--muted);">Chattanooga, TN · Serving clients across North America & Europe</p>
+</footer>
+
+<script>
+// PODCAST ARCHIVE TOGGLE — set to false to hide the archive section entirely
+const SHOW_PODCAST_ARCHIVE = true;
+if (!SHOW_PODCAST_ARCHIVE) {
+  const arch = document.getElementById('podcastArchive');
+  if (arch) arch.style.display = 'none';
+}
+
+function scrollArchive(dir) {
+  const track = document.getElementById('archiveTrack');
+  const card = track.querySelector('.ep-card');
+  const cardW = card.offsetWidth + 24;
+  track.scrollLeft += dir * cardW;
+}
+
+function submitForm() {
+  const req = ['fname','lname','firm','email'];
+  let valid = true;
+  req.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.style.borderColor = '#E84B1A';
+      el.style.boxShadow = '0 0 0 3px rgba(232,75,26,0.2)';
+      valid = false;
+    } else {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }
+  });
+  if (!valid) return;
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '0';
+      e.target.style.transform = 'translateY(12px)';
+      setTimeout(() => {
+        e.target.style.transition = 'opacity 0.5s, transform 0.5s';
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }, 100);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stat-number, .event-card, .threat-card').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
