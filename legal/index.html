@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fenix24 | Cybersecurity for Law Firms</title>
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -103,24 +104,28 @@
     position: relative;
   }
   .video-embed iframe { width: 100%; height: 100%; border: none; display: block; }
-  /* Placeholder until real embed URL */
   .video-placeholder {
-    width: 100%; aspect-ratio: 16/9;
-    background: linear-gradient(135deg, #0d0f12 0%, #1a1f28 50%, #0f1318 100%);
+    width: 100%; aspect-ratio: 16/9; position: relative; background: #000; overflow: hidden;
+  }
+  .video-placeholder .wistia_responsive_padding { padding: 56.25% 0 0 0 !important; }
+  .video-placeholder .wistia_responsive_wrapper { left: 0 !important; top: 0 !important; }
+  .video-play-overlay {
+    position: absolute; inset: 0; z-index: 2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 16px; position: relative; overflow: hidden; cursor: pointer;
+    gap: 16px; cursor: pointer;
   }
-  .video-placeholder::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(232,75,26,0.18), transparent 70%);
+  .video-play-overlay::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(189,91,49,0.25), rgba(0,0,0,0.5) 70%);
   }
-  .play-btn {
+  .video-play-overlay.hidden { display: none !important; }
+  .video-play-overlay .play-btn {
     width: 76px; height: 76px; border-radius: 50%; background: var(--flame);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 50px rgba(232,75,26,0.5); transition: all 0.2s; position: relative; z-index: 1;
+    box-shadow: 0 0 50px rgba(189,91,49,0.5); transition: transform 0.2s; position: relative; z-index: 1;
   }
-  .play-btn:hover { transform: scale(1.1); }
-  .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
+  .video-play-overlay:hover .play-btn { transform: scale(1.1); }
+  .video-play-overlay .play-btn svg { width: 30px; height: 30px; fill: white; margin-left: 4px; }
   .video-placeholder-text { font-size: 13px; color: var(--muted); position: relative; z-index: 1; letter-spacing: 1px; }
   .video-body { padding: 24px; }
   .episode-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--flame); margin-bottom: 8px; }
@@ -133,7 +138,7 @@
     display: flex; align-items: center; justify-content: center;
     font-weight: 800; font-size: 14px; color: white; flex-shrink: 0;
   }
-  .host-info p { font-size: 13px; font-weight: 600; color: var(--white); }
+  .host-info p { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 0px!important; }
   .host-info span { font-size: 12px; color: var(--muted); }
 
   /* WHAT JOHN COVERS */
@@ -274,11 +279,11 @@
     position: relative;
   }
   .event-item:not(:last-child) .event-line::after {
-    content: ''; position: absolute; top: 40px; left: 79px; bottom: -1px; width: 2px;
+    content: ''; position: absolute; top: 40px; right: -31px; bottom: -1px; width: 2px;
     background: linear-gradient(to bottom, rgba(232,75,26,0.4), rgba(232,75,26,0.05));
   }
-  .event-date-col { display: flex; flex-direction: column; align-items: flex-end; padding-right: 30px; padding-top: 8px; position: relative; }
-  .event-date-col .event-line { position: relative; }
+  .event-date-col { display: flex; flex-direction: column; align-items: flex-end; padding-right: 30px; padding-top: 8px; position: relative; text-align: right; }
+  .event-date-col .event-line { position: relative; height: 100%; }
   .event-dot {
     width: 14px; height: 14px; border-radius: 50%;
     background: var(--flame); border: 3px solid var(--dark);
@@ -483,21 +488,23 @@
     <p>Law firms hold the most sensitive data in existence — and they're the most underprepared. Fenix24 is the battle-tested cybersecurity partner built to help you survive, recover, and protect what matters most.</p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">Has Your Firm Been Compromised?</a>
-      <a href="#podcast" class="btn-secondary">Watch Episode 1 ↓</a>
     </div>
   </div>
 
   <!-- VIDEO CARD -->
   <div class="video-card" id="podcast">
     <div class="podcast-badge">🎙 EPISODE 1 · NOW LIVE</div>
-    <!-- Replace src with your actual video embed URL e.g. YouTube, Vimeo, Wistia -->
-    <div class="video-placeholder" onclick="this.innerHTML='<iframe src=\'YOUR_VIDEO_EMBED_URL\' allow=\'autoplay; fullscreen\' allowfullscreen></iframe>'; this.style.padding='0';">
-      <div class="play-btn">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <div class="video-placeholder">
+      <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+          <div class="wistia_embed wistia_async_wxhgsmy4ru videoFoam=true playbar=true volumeControl=true fullscreenButton=true" style="height:100%;width:100%">&nbsp;</div>
+        </div>
       </div>
-      <div class="video-placeholder-text">CLICK TO PLAY · FENIX24 PODCAST EP. 1</div>
-			<img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="Episode 1 Thumbnail" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-
+      <div class="video-play-overlay" id="fenix24VideoOverlay" onclick="var o=this;o.classList.add('hidden');(function(){var w=window.Wistia;if(w&&w.api){var el=document.querySelector('.wistia_async_wxhgsmy4ru');if(el){var v=w.api(el);if(v&&v.play)v.play();return;}}window._wq=window._wq||[];window._wq.push({id:'wxhgsmy4ru',onReady:function(v){v.play();}});})();">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="video-placeholder-text">CLICK TO PLAY · FENIX24 PODCAST EP. 1</div>
+        <img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+      </div>
     </div>
     <div class="video-body">
       <div class="episode-label">The Fenix24 Podcast · Episode 1</div>
@@ -581,8 +588,8 @@
       <p>What sets John apart isn't just his technical depth — it's that he understands the practice of law. He has served law firms' technological and business needs <strong style="color:var(--white);">since 1998</strong>, giving him an intimate understanding of the unique vulnerabilities, ethical obligations, and reputational stakes that make legal organizations such high-value targets.</p>
       <p>His career began in 1994 at age 14, where he was involved in the initial rollout of industry-leading technologies including Citrix Winframe, Windows NT, and early Internet infrastructure. He founded his first company, Computech, in 1996 — and hasn't stopped building since.</p>
       <div class="john-credentials">
-        <div class="cred"><div class="cred-dot"></div>B.S. Organizational Management, Covenant College, Lookout Mountain, GA</div>
-        <div class="cred"><div class="cred-dot"></div>Computer Science studies, University of Tennessee at Chattanooga</div>
+        <div class="cred"><div class="cred-dot"></div>Organizational Management, Covenant College, Lookout Mountain, GA</div>
+        <div class="cred"><div class="cred-dot"></div>Computer Science, University of Tennessee at Chattanooga</div>
         <div class="cred"><div class="cred-dot"></div>Founded Computech (1996), NetAlliant Technologies (2002, sold 2008), Conversant Group / Fenix24 (2009)</div>
         <div class="cred"><div class="cred-dot"></div>Serving law firms' security needs since 1998</div>
         <div class="cred"><div class="cred-dot"></div>Clients across North America, Europe, and beyond</div>
@@ -675,87 +682,120 @@
 
     <div class="events-timeline">
 
-      <!-- N2K CyberWire -->
+      <!-- RSA Conference -->
       <div class="event-item">
         <div class="event-date-col">
           <div class="event-line">
             <div class="event-dot"></div>
-            <div class="event-month">Ongoing</div>
-            <div class="event-dates">2025</div>
-            <div class="event-year">–2026</div>
-          </div>
-        </div>
-        <div class="event-body">
-          <div class="event-card">
-            <div class="event-tag">Podcast · Media</div>
-            <div class="event-name">N2K CyberWire Podcast</div>
-            <div class="event-detail">John joins the N2K CyberWire network — one of the most listened-to cybersecurity news platforms in the industry — for a conversation on the evolving threat landscape and what organizations must do to stay survivable. <span class="event-tbd">Episode Date TBC</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RSA / Media Outlets -->
-      <div class="event-item">
-        <div class="event-date-col">
-          <div class="event-line">
-            <div class="event-dot"></div>
-            <div class="event-month">APR – MAY</div>
-            <div class="event-dates">2026</div>
-            <div class="event-year">San Francisco, CA</div>
+            <div class="event-month">March 23 – 26</div>
+            <div class="event-dates">San Francisco, CA</div>
+            <div class="event-year">—</div>
           </div>
         </div>
         <div class="event-body">
           <div class="event-card">
             <div class="event-tag">Conference · Media</div>
-            <div class="event-name">RSA Conference 2026 — Media Appearances</div>
-            <div class="event-detail">RSA Conference is the world's leading cybersecurity event. John will be participating in media outlet appearances and conversations on the floor at RSA 2026. <span class="event-tbd">Dates TBC</span></div>
+            <div class="event-name">RSA Conference</div>
+            <div class="event-detail">As the world's premier cybersecurity event, RSAC sets the global agenda for the industry. John will join CyberRisk TV for an Executive Interview on March 25 from 1:00 PM – 1:30 PM PT.</div>
           </div>
         </div>
       </div>
 
-      <!-- ILTA Evolve -->
+      <!-- N2K CyberWire Daily Podcast -->
       <div class="event-item">
         <div class="event-date-col">
           <div class="event-line">
             <div class="event-dot"></div>
-            <div class="event-month">TBD 2026</div>
-            <div class="event-dates">ILTA</div>
-            <div class="event-year">Evolve</div>
+            <div class="event-month">April 7</div>
+            <div class="event-dates">Airs</div>
+            <div class="event-year">—</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Podcast · Media</div>
+            <div class="event-name">N2K CyberWire Daily Podcast</div>
+            <div class="event-detail">John will feature as a guest expert on the N2K Cyberwire Daily Podcast, discussing the latest shifts in the threat landscape and industry trends.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- N2K Cyberwire Daily on X -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">April 12</div>
+            <div class="event-dates">Airs</div>
+            <div class="event-year">—</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Podcast · Media</div>
+            <div class="event-name">N2K CyberWire "Daily on X"</div>
+            <div class="event-detail">Catch John for a second appearance with N2K, specifically focused on a deep dive for their Cyberwire on X (formerly Twitter) broadcast.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Southeast Cyber Summit -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">April 15 – 16</div>
+            <div class="event-dates">Birmingham, AL</div>
+            <div class="event-year">April 15, 3:30 PM – 4:15 PM CT</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-card">
+            <div class="event-tag">Conference · Regional</div>
+            <div class="event-name">Southeast Cyber Summit</div>
+            <div class="event-detail">Dedicated to advancing the cybersecurity profession across the Southeast, this summit facilitates critical regional collaboration. John will deliver a session on Cloud, Governance, and Enterprise Security on April 15 from 3:30 PM – 4:15 PM CT.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ILTA EVOLVE -->
+      <div class="event-item">
+        <div class="event-date-col">
+          <div class="event-line">
+            <div class="event-dot"></div>
+            <div class="event-month">April 30 – May 2</div>
+            <div class="event-dates">Denver, CO</div>
+            <div class="event-year">—</div>
           </div>
         </div>
         <div class="event-body">
           <div class="event-card">
             <div class="event-tag">Legal Tech · Conference</div>
-            <div class="event-name">ILTA Evolve</div>
-            <div class="event-detail">The International Legal Technology Association's premier event brings together legal IT professionals and firm leaders. John will be speaking directly to the legal community on cybersecurity risk, breach preparedness, and what law firms must do differently. <span class="event-tbd">Date TBC</span></div>
+            <div class="event-name">ILTA EVOLVE</div>
+            <div class="event-detail">The International Legal Technology Association's premier event focuses on the evolution of legal tech. John will be in attendance to engage with legal IT leaders and firm executives on emerging digital risks.</div>
           </div>
         </div>
       </div>
 
-      <!-- ISACA -->
+      <!-- ISACA North America Conference -->
       <div class="event-item">
         <div class="event-date-col">
           <div class="event-line">
             <div class="event-dot"></div>
-            <div class="event-month">TBD 2026</div>
-            <div class="event-dates">ISACA</div>
-            <div class="event-year">North America</div>
+            <div class="event-month">May 6 – 8</div>
+            <div class="event-dates">Las Vegas, NV</div>
+            <div class="event-year">May 5, 9:45 AM – 10:45 AM PT</div>
           </div>
         </div>
         <div class="event-body">
           <div class="event-card">
             <div class="event-tag">Governance · Risk · Compliance</div>
             <div class="event-name">ISACA North America Conference</div>
-            <div class="event-detail">ISACA's North America conference brings together thousands of IT governance, risk, and compliance professionals. John will be sharing Fenix24's frontline perspective on modern threat groups, breach recovery, and building survivable organizations. <span class="event-tbd">Date TBC</span></div>
+            <div class="event-detail">This cornerstone event for digital trust focuses on the intersection of IT audit, risk, and governance. John will kick things off with a speaking session during the pre-conference schedule on May 5 from 9:45 AM – 10:45 AM PT.</div>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <div class="events-cta">
-      <p>Want to connect with John or the Fenix24 team at an upcoming event? Reach out below.</p>
-      <a href="#contact" class="btn-primary">Request a Meeting at an Event →</a>
     </div>
   </div>
 </section>
@@ -763,6 +803,7 @@
 <div class="flame-divider"></div>
 
 <!-- PODCAST ARCHIVE — set SHOW_PODCAST_ARCHIVE = false to hide this section -->
+<!--
 <section class="archive-section" id="podcastArchive">
   <div class="archive-inner">
     <div class="section-label">All Episodes</div>
@@ -773,7 +814,6 @@
       <button class="archive-arrow left" onclick="scrollArchive(-1)" aria-label="Previous">&#8592;</button>
       <div class="archive-track" id="archiveTrack">
 
-        <!-- EPISODE CARDS — duplicate or add new cards here as episodes are published -->
         <div class="ep-card">
           <div class="ep-title">Is Your Law Firm Actually Safe?</div>
           <div class="ep-thumb">
@@ -805,12 +845,13 @@
           <a href="#contact" class="ep-cta">Get Notified &#8594;</a>
         </div>
 
-      </div><!-- end archive-track -->
+      </div>
       <button class="archive-arrow right" onclick="scrollArchive(1)" aria-label="Next">&#8594;</button>
     </div>
 
   </div>
 </section>
+-->
 
 <!-- CONTACT FORM -->
 <section class="contact-section" id="contact">
@@ -859,7 +900,7 @@
         </div>
       </div>
       <button class="submit-btn" onclick="submitForm()">Request My Confidential Assessment →</button>
-      <p class="form-note">🔒 Your information is strictly confidential. A Fenix24 specialist will contact you within one business day.</p>
+      <p class="form-note">🔒 Your information is strictly confidential. A Fenix24 specialist will contact you as soon as possible.</p>
     </div>
 
     <div class="form-success" id="formSuccess">
