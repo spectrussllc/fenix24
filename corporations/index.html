@@ -463,6 +463,10 @@
     .form-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px; }
   }
+
+  @media (max-width: 768px) {
+    .nav-podcast { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -844,7 +848,46 @@
     <h2>Is Your Organization <span class="accent">Actually Safe?</span></h2>
     <p class="sub">Do not wait to find out the hard way. Our team will assess your current security posture, surface the vulnerabilities hiding in plain sight, and give you a clear picture of where you stand — before a threat actor does it for you.</p>
     <div class="urgency-bar">&#9888; Active ransomware groups are targeting organizations across every industry right now. The best time to assess your exposure is before a breach, not during one.</div>
-		<iframe src=https://go.conversantgroup.com/l/1037143/2025-07-17/4jwfn width="100%" height="700" type="text/html" frameborder="0" allowTransparency="true" style="border: 0"></iframe>
+		<div id="contactForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Smith" />
+        </div>
+        <div class="form-group">
+          <label>Firm Name *</label>
+          <input type="text" id="firm" placeholder="Smith & Associates LLP" />
+        </div>
+        <div class="form-group">
+          <label>Business Email *</label>
+          <input type="email" id="email" placeholder="jane@smithlaw.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="(555) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>Urgency</label>
+          <select id="urgency">
+            <option value="" disabled selected>How urgent is this?</option>
+            <option>We've experienced an incident</option>
+            <option>We suspect a breach</option>
+            <option>Proactive — want to be prepared</option>
+            <option>Evaluating options</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>What's your biggest security concern?</label>
+          <textarea id="concern" placeholder="e.g. We recently had a phishing attempt, we're unsure about our current IT setup, a partner wants to review our security posture..."></textarea>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="submitForm()">Request My Confidential Assessment →</button>
+      <p class="form-note">🔒 Your information is strictly confidential. A Fenix24 specialist will contact you as soon as possible.</p>
+    </div>
     <div class="form-success" id="formSuccess">
       <div class="check">&#128293;</div>
       <h3>You are in good hands.</h3>
