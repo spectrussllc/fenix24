@@ -141,6 +141,54 @@
   .host-info p { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 0px!important; }
   .host-info span { font-size: 12px; color: var(--muted); }
 
+  /* WEBCAST MODAL (same behavior as legal ILTA modal) */
+  .modal {
+    position: fixed; inset: 0; z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal.is-open { display: flex; }
+  body.modal-open { overflow: hidden; }
+  .modal-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(10, 12, 15, 0.88);
+    backdrop-filter: blur(6px);
+  }
+  .modal-panel {
+    position: relative; z-index: 1;
+    width: min(760px, 100%);
+    height: 700px;
+    max-height: min(700px, calc(100vh - 48px));
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-close {
+    position: absolute; top: 10px; right: 10px; z-index: 3;
+    width: 40px; height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(10, 12, 15, 0.88);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .modal-close:hover { background: var(--flame); border-color: var(--flame); color: var(--white); }
+  .modal-close svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2.2; fill: none; stroke-linecap: round; }
+  .modal-body { flex: 1; min-height: 0; overflow: auto; }
+  .modal-body iframe { display: block; width: 100%; height: 700px; min-height: 700px; border: 0; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+
   /* WHAT JOHN COVERS */
   .covers-section {
     background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -496,7 +544,7 @@
   </div>
 
   <div class="video-card" id="podcast">
-    <div class="podcast-badge">&#127897; EPISODE 1 · NOW LIVE</div>
+    <div class="podcast-badge">&#127897; EPISODE 2 · NOW LIVE</div>
     <div class="video-placeholder">
       <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
         <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
@@ -505,11 +553,11 @@
       </div>
       <div class="video-play-overlay" onclick="var o=this;o.classList.add('hidden');(function(){var w=window.Wistia;if(w&&w.api){var el=document.querySelector('.wistia_async_kn75nmjn7h');if(el){var v=w.api(el);if(v&&v.play)v.play();return;}}window._wq=window._wq||[];window._wq.push({id:'kn75nmjn7h',onReady:function(v){v.play();}});})();">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <img src="../img/FENIX24_Thumbnail_NNL1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+        <img src="../img/FENIX24_Thumbnail_EP2.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
       </div>
     </div>
     <div class="video-body">
-      <div class="episode-label">The Fenix24 Podcast · Episode 1</div>
+      <div class="episode-label">The Fenix24 Podcast · Episode 2</div>
       <div class="video-title">Everyone is a Target...</div>
       <div class="video-synopsis">Cybersecurity expert John Anthony Smith pulls back the curtain on why even the most established organizations are dangerously exposed. From the economics of modern ransomware to real threat groups actively targeting enterprises today, this episode is essential viewing for every executive and security leader responsible for protecting their organization.</div>
       <div class="host-row">
@@ -565,7 +613,7 @@
 <!-- STATS -->
 <div class="stats">
   <div class="stat"><div class="stat-number">$2.73MM</div><div class="stat-label">Average ransom demand for enterprises</div></div>
-  <div class="stat"><div class="stat-number">66%</div><div class="stat-label">Of organizations hit by ransomware in the past year</div></div>
+  <div class="stat"><div class="stat-number">78%</div><div class="stat-label">Of organizations reported attacks last year</div></div>
   <div class="stat"><div class="stat-number">30+</div><div class="stat-label">Years of cybersecurity expertise behind Fenix24</div></div>
   <div class="stat"><div class="stat-number">24/7</div><div class="stat-label">Breach response and recovery support</div></div>
 </div>
@@ -600,70 +648,16 @@
   </div>
 </section>
 
-<!-- ABOUT FENIX24 -->
-<section class="about-fenix">
-  <div class="about-fenix-inner">
-    <div>
-      <div class="section-label">About the Firm</div>
-      <h2>The World's First Civilian <span class="accent">Cybersecurity Force.</span></h2>
-      <p>Fenix24 is a cybersecurity firm specializing in disaster recovery and breach response. Built out of Chattanooga, Tennessee, we work across every major industry to help organizations build resilient, survivable systems before and after an attack.</p>
-      <p>We do not just respond to crises. We help you build the systems, culture, and processes that can withstand them. Our approach is human-centric, battle-tested, and rooted in more than three decades of real-world cybersecurity experience across North America, Europe, and beyond.</p>
-      <p>When a breach happens, every hour matters. Fenix24 deploys fast, contains the damage, and gets your operations restored — protecting your data, your people, and your reputation.</p>
-      <a href="#contact" class="btn-primary" style="margin-top:12px;">Get A Resilience Assessment</a>
-    </div>
-    <div class="fenix-pillars">
-      <div class="pillar">
-        <h4>Breach Response and Recovery</h4>
-        <p>When ransomware hits, every hour matters. Fenix24 deploys fast, contains the damage, and gets you operational while protecting your people and your reputation.</p>
-      </div>
-      <div class="pillar">
-        <h4>Security Assessments</h4>
-        <p>Know where you stand before a threat actor shows you. Our assessments surface the vulnerabilities hiding in plain sight across your identity, infrastructure, and access controls.</p>
-      </div>
-      <div class="pillar">
-        <h4>Resilient Architecture</h4>
-        <p>We help you build systems designed to survive an attack, not just resist one. The goal is not perfection. It is survivability.</p>
-      </div>
-      <div class="pillar">
-        <h4>Enterprise-Grade Protection</h4>
-        <p>From mid-market companies to global enterprises, Fenix24 brings the same battle-tested rigor and human-first approach to every engagement, at every scale.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- WHY ORGANIZATIONS ARE TARGETED -->
 <section class="threat-section">
   <div class="threat-section-inner">
     <div class="section-label">The Threat Landscape</div>
     <h2>No Industry Is Off the <span class="accent">Threat List.</span></h2>
-    <p class="sub">Modern threat actors do not discriminate. They target organizations with valuable data, reputations worth protecting, and incentives to pay quietly and move on. If that describes your organization, you are already on their radar.</p>
-    <div class="threat-grid">
-      <div class="threat-card">
-        <h3>Sensitive Data Equals High-Value Targets</h3>
-        <p>Financial records, intellectual property, customer data, trade secrets — whatever your organization holds, threat actors have assigned it a dollar value and a strategy to extract it.</p>
-      </div>
-      <div class="threat-card">
-        <h3>The Economics of Silence</h3>
-        <p>Organizations pay ransoms quietly to avoid reputational fallout, regulatory scrutiny, and operational disruption. Cybercriminals know this. Your incentive to move on becomes their leverage.</p>
-      </div>
-      <div class="threat-card">
-        <h3>Scattered Spider and Akira</h3>
-        <p>These are not faceless risks. Groups like Akira represent Fenix24's number one breach pattern across all industries. They are organized, motivated, and methodical in how they operate.</p>
-      </div>
-      <div class="threat-card">
-        <h3>Identity and Help Desk Exploits</h3>
-        <p>The most common vulnerability is weak identity verification. Attackers social-engineer their way in through your own IT help desk before you even know an attack has begun.</p>
-      </div>
-      <div class="threat-card">
-        <h3>Overcrowded Active Directories</h3>
-        <p>Years of growth without cleanup leaves Active Directories cluttered with stale accounts and excessive permissions. Each one is an open door hiding in plain sight inside your own systems.</p>
-      </div>
-      <div class="threat-card">
-        <h3>Operational and Reputational Fallout</h3>
-        <p>A breach does not just cost money. It halts operations, triggers regulatory and legal exposure, and erodes the trust of customers, partners, and stakeholders you may never fully recover.</p>
-      </div>
-    </div>
+    <p class="sub">Organized groups like Akira are methodically targeting enterprises across every sector, exploiting weak identity controls and the reputational incentives that keep breaches quiet. The question is no longer whether your organization will be targeted — it's whether you'll recover.</p>
+		<p>Want to hear more about what it takes to recover when defenses fail? Watch this 29-minute chat from RSA 2026 with CEO & Co-founder of Fenix24, Mark Grazman.</p>
+		<br>
+		<a href="#" id="btnwebcast" class="nav-cta" style="margin-top: 40px; display: inline-block;">Watch the Webcast</a>
   </div>
 </section>
 
@@ -906,6 +900,20 @@
   <p style="font-size:12px;color:var(--muted);">Serving clients across the United States and Worldwide.</p>
 </footer>
 
+<div id="webcastModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="webcastModalTitle" aria-hidden="true">
+  <div class="modal-backdrop" data-webcast-modal-close tabindex="-1"></div>
+  <div class="modal-panel">
+    <button type="button" class="modal-close" id="btnWebcastClose" aria-label="Close dialog" data-webcast-modal-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <h2 id="webcastModalTitle" class="sr-only">Watch the Webcast</h2>
+    <div class="modal-body">
+      <!-- Replace src with Salesforce / HubSpot webcast embed when ready -->
+      <iframe src="https://go.conversantgroup.com/l/1037143/2026-02-19/53cvr" width="100%" height="700" title="Webcast registration" frameborder="0" allowtransparency="true" style="border: 0"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
 const SHOW_PODCAST_ARCHIVE = true;
 if (!SHOW_PODCAST_ARCHIVE) {
@@ -950,6 +958,36 @@ const obs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.3 });
 document.querySelectorAll('.stat-number, .event-card, .threat-card').forEach(el => obs.observe(el));
+
+(function () {
+  var modal = document.getElementById('webcastModal');
+  var btnOpen = document.getElementById('btnwebcast');
+  if (!modal || !btnOpen) return;
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    var closeBtn = document.getElementById('btnWebcastClose');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    btnOpen.focus();
+  }
+
+  btnOpen.addEventListener('click', openModal);
+  modal.querySelectorAll('[data-webcast-modal-close]').forEach(function (el) {
+    el.addEventListener('click', closeModal);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+})();
 </script>
 </body>
 </html>
