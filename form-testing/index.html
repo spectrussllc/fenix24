@@ -503,10 +503,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="hero hero-center">
 	<h1>Form testing</h1>
 </section>
-
 <section>
 	<div class="container">
-	<h2>Bottom forms - both landing pages</h2>
+		<h2>Ideal case:</h2>
+		<h3>1. Legal Bottom form</h3>
+		<ul>
+			<li>Redirect to https://landing.fenix24.com/legal-thank-you</li>
+		</ul>
+		<br>
+		<h3>2.Corporations Bottom form</h3>
+		<ul>
+			<li>Redirect to https://landing.fenix24.com/corporations-thank-you</li>
+		</ul>
+		<br>
+		<h3>3. Legal Page - Download ILTA Report</h3>
+		<ul>
+			<li>Redirect to https://landing.fenix24.com/iltareport2025pdf</li>
+			<li>Button can say "Download the Full Report"</li>
+		</ul>
+		<br>
+		<h3>4. Corporations Page - Watch Webcast Form</h3>
+		<ul>
+			<li>Redirect to https://landing.fenix24.com/webcast</li>
+			<li>Button can say "Watch Webcast"</li>
+		</ul>
+	</div>
+</section>
+<hr>
+<section>
+	<div class="container">
+		<h2>Current Setup</h2>
+	<h3>Bottom forms - both landing pages</h3>
 	<p style="font-size:20px">Should be redirecting to <a style="color:yellow" href="https://landing.fenix24.com/thank-you">https://landing.fenix24.com/thank-you</a> ✅</p>
 		<pre><code>
 	&lt;iframe
@@ -525,7 +552,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section>
 	<div class="container">
-	<h2>Legal Page - Download ILTA Report</h2>
+	<h3>Legal Page - Download ILTA Report</h3>
 	<p style="font-size:16px">Should be redirecting to <a style="color:yellow" href="https://landing.fenix24.com/iltareport2025pdf">https://landing.fenix24.com/iltareport2025pdf</a> ❌ - redirects to https://fenix24.com/ILTAReport2025PDF/</p>
 	<p>Button can say "Download the Full Report" ✅</p>
 		<pre><code>
@@ -546,7 +573,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section>
 	<div class="container">
-	<h2>Corporations Page - Watch Webcast Form</h2>
+	<h3>Corporations Page - Watch Webcast Form</h3>
 	<p style="font-size:16px">Should be redirecting to <a style="color:yellow" href="https://landing.fenix24.com/webcast">https://landing.fenix24.com/webcast</a> ❌ redirects to https://landing.fenix24.com/iltareport2025pdf/</p>
 	<p style="font-size:20px">Button can say "Watch Webcast" ❌</p>
 		<pre><code>
