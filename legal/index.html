@@ -24,9 +24,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="../img/cropped-logo-192x192.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="../img/cropped-logo-180x180.png" />
 <meta name="msapplication-TileImage" content="../img/cropped-logo-270x270.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" />
+<link rel="preconnect" href="https://fast.wistia.com" />
+<link rel="preconnect" href="https://go.conversantgroup.com" />
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --flame: #bd5b31; --flame-dark: #a04926; --flame-glow: rgba(189,91,49,0.25);
@@ -545,7 +549,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- NAV -->
 <nav>
   <a href="#" class="logo">
-    <img width="100" src="../img/fenix24.png" alt="Fenix24 Logo">
+    <picture>
+      <source srcset="../img/fenix24.webp" type="image/webp" />
+      <img width="2000" height="1540" src="../img/fenix24.png" alt="Fenix24 Logo" style="width:100px;height:auto" />
+    </picture>
   </a>
   <div style="display:flex; align-items:center; gap:30px;">
     <a href="#podcast" class="nav-podcast">BREACH POINT: <span>a Fenix24 Podcast</span></a>
@@ -577,7 +584,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="video-play-overlay" id="fenix24VideoOverlay" onclick="var o=this;o.classList.add('hidden');(function(){var w=window.Wistia;if(w&&w.api){var el=document.querySelector('.wistia_async_wxhgsmy4ru');if(el){var v=w.api(el);if(v&&v.play)v.play();return;}}window._wq=window._wq||[];window._wq.push({id:'wxhgsmy4ru',onReady:function(v){v.play();}});})();">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+        <picture>
+          <source srcset="../img/Copy of FENIX24_Thumbnail_E1.webp" type="image/webp" />
+          <img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;" />
+        </picture>
       </div>
     </div>
     <div class="video-body">
@@ -647,7 +657,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="about-john-inner">
     <div class="john-photo-wrap">
       <div class="john-photo">
-       <img src="../img/JAS_HS.jpg" alt="John Anthony Smith" style="width:100%; height:100%; object-fit:cover;">
+       <picture>
+         <source srcset="../img/JAS_HS.webp" type="image/webp" />
+         <img src="../img/JAS_HS.jpg" alt="John Anthony Smith" width="2006" height="2560" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover;" />
+       </picture>
         <div class="john-photo-badge">
           <p>John Anthony Smith</p>
           <span>CSO & Co-founder, Fenix24</span>
@@ -856,7 +869,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="ep-thumb">
             <div class="ep-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             <div class="ep-num">EP. 01</div>
-						<img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="Episode 1 Thumbnail" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+						<picture>
+						  <source srcset="../img/Copy of FENIX24_Thumbnail_E1.webp" type="image/webp" />
+						  <img src="../img/Copy of FENIX24_Thumbnail_E1.jpg" alt="Episode 1 Thumbnail" width="1920" height="1080" loading="lazy" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" />
+						</picture>
           </div>
           <div class="ep-summary">John Anthony Smith reveals why law firms have become the most targeted and most underprepared organizations in today's ransomware landscape.</div>
           <a href="#podcast" class="ep-cta">Watch Podcast Now &#8594;</a>
@@ -939,7 +955,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="submit-btn" onclick="submitForm()">Request My Confidential Assessment →</button>
       <p class="form-note">🔒 Your information is strictly confidential. A Fenix24 specialist will contact you as soon as possible.</p>
     </div> -->
-		<iframe src=https://go.conversantgroup.com/l/1037143/2026-02-19/53cvr width="100%" height="500" type="text/html" frameborder="0" allowTransparency="true" style="border: 0"></iframe> 
+		<iframe src="https://go.conversantgroup.com/l/1037143/2026-02-19/53cvr" width="100%" height="500" loading="lazy" title="Contact form" frameborder="0" allowtransparency="true" style="border:0"></iframe> 
 
     <div class="form-success" id="formSuccess">
       <div class="check">🔥</div>
@@ -952,7 +968,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- FOOTER -->
 <footer>
   <a href="#" class="logo">
-		<img width="100" src="../img/fenix24.png" alt="Fenix24 Logo">
+		<picture>
+		  <source srcset="../img/fenix24.webp" type="image/webp" />
+		  <img width="2000" height="1540" src="../img/fenix24.png" alt="Fenix24 Logo" loading="lazy" decoding="async" style="width:100px;height:auto" />
+		</picture>
   </a>
   <p>© 2026 Fenix24. All rights reserved. | <a href="https://fenix24.com" target="_blank">fenix24.com</a></p>
   <p style="font-size:12px;color:var(--muted);">Serving clients across the United States and Worldwide.</p>
@@ -965,7 +984,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </button>
     <h2 id="iltaModalTitle" class="sr-only">Download ILTA Report</h2>
     <div class="modal-body">
-      <iframe src="https://go.conversantgroup.com/l/1037143/2025-07-17/4jwfn" width="100%" height="700" title="ILTA Report download form" frameborder="0" allowtransparency="true" style="border: 0"></iframe>
+      <iframe id="iltaReportIframe" data-src="https://go.conversantgroup.com/l/1037143/2025-07-17/4jwfn" width="100%" height="700" title="ILTA Report download form" frameborder="0" allowtransparency="true" style="border:0"></iframe>
     </div>
   </div>
 </div>
@@ -1026,6 +1045,10 @@ document.querySelectorAll('.stat-number, .event-card, .threat-card').forEach(el 
 
   function openModal(e) {
     if (e) e.preventDefault();
+    var iltaIframe = document.getElementById('iltaReportIframe');
+    if (iltaIframe && iltaIframe.dataset.src && !iltaIframe.getAttribute('src')) {
+      iltaIframe.src = iltaIframe.dataset.src;
+    }
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
