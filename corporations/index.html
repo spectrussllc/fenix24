@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Fenix24 | Cybersecurity Breach Recovery</title>
 <meta name="description" content="Enterprise cybersecurity and ransomware breach recovery by Fenix24. Assess your posture before attackers do." />
 <meta property="og:title" content="Fenix24 | Cybersecurity Breach Recovery" />
@@ -130,8 +131,13 @@
   .video-placeholder {
     width: 100%; aspect-ratio: 16/9; position: relative; background: #000; overflow: hidden;
   }
-  .video-placeholder .wistia_responsive_padding { padding: 56.25% 0 0 0 !important; }
-  .video-placeholder .wistia_responsive_wrapper { left: 0 !important; top: 0 !important; }
+  .video-placeholder > iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
   .video-play-overlay {
     position: absolute; inset: 0; z-index: 2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -579,14 +585,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="video-card" id="podcast">
     <div class="podcast-badge">&#127897; EPISODE 2 · NOW LIVE</div>
-    <div class="video-placeholder">
-      <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
-        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
-          <div class="wistia_embed wistia_async_kn75nmjn7h videoFoam=true playbar=true volumeControl=true fullscreenButton=true" style="height:100%;width:100%">&nbsp;</div>
-        </div>
-      </div>
-      <div class="video-play-overlay" onclick="var o=this;o.classList.add('hidden');(function(){var w=window.Wistia;if(w&&w.api){var el=document.querySelector('.wistia_async_kn75nmjn7h');if(el){var v=w.api(el);if(v&&v.play)v.play();return;}}window._wq=window._wq||[];window._wq.push({id:'kn75nmjn7h',onReady:function(v){v.play();}});})();">
-        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    <div class="video-placeholder" id="corpPodcastVideo">
+      <div class="video-play-overlay" id="corpVideoOverlay" role="button" tabindex="0" aria-label="Play video: Everyone is a Target"
+        onclick="window.corpYoutubePlay&&corpYoutubePlay(this);">
+        <div class="play-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <picture>
           <source type="image/webp" srcset="../img/FENIX24_Thumbnail_EP2-640.webp 640w, ../img/FENIX24_Thumbnail_EP2-1280.webp 1280w, ../img/FENIX24_Thumbnail_EP2.webp 1920w" sizes="(max-width: 960px) 100vw, min(50vw, 640px)" />
           <img src="../img/FENIX24_Thumbnail_EP2.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;" />
@@ -995,6 +997,38 @@ document.querySelectorAll('.stat-number, .event-card, .threat-card').forEach(el 
 })();
 </script>
 <script>
+window.corpYoutubePlay = function (overlay) {
+  var root = document.getElementById('corpPodcastVideo');
+  if (!root || root.querySelector('iframe')) return;
+  overlay.classList.add('hidden');
+  var f = document.createElement('iframe');
+  var q = new URLSearchParams({
+    autoplay: '1',
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+    enablejsapi: '1',
+    origin: window.location.origin
+  });
+  f.src = 'https://www.youtube.com/embed/dKt4OFoJ0n0?' + q.toString();
+  f.title = 'Everyone is a Target — Fenix24';
+  f.setAttribute('allowfullscreen', '');
+  f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+  f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  f.loading = 'eager';
+  root.appendChild(f);
+};
+(function () {
+  var o = document.getElementById('corpVideoOverlay');
+  if (o) {
+    o.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.corpYoutubePlay(o);
+      }
+    });
+  }
+})();
 (function () {
   window.addEventListener('load', function () {
     (function (w, d, s, l, i) {
@@ -1008,21 +1042,6 @@ document.querySelectorAll('.stat-number, .event-card, .threat-card').forEach(el 
       f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-NJGSFJ4F');
   });
-  function loadWistia() {
-    if (window.__fenixWistia) return;
-    window.__fenixWistia = true;
-    var s = document.createElement('script');
-    s.src = 'https://fast.wistia.com/assets/external/E-v1.js';
-    s.async = true;
-    document.head.appendChild(s);
-  }
-  if (window.requestIdleCallback) {
-    requestIdleCallback(loadWistia, { timeout: 2000 });
-  } else {
-    window.addEventListener('load', function () {
-      setTimeout(loadWistia, 150);
-    });
-  }
 })();
 </script>
 </body>
