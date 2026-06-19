@@ -187,6 +187,11 @@
 			.nav-cta:hover {
 				background: var(--gold-dark);
 			}
+			.nav-actions {
+				display: flex;
+				align-items: center;
+				gap: 30px;
+			}
 
 			/* HERO */
 			.hero {
@@ -1685,18 +1690,50 @@
 
 			@media (max-width: 960px) {
 				nav {
-					padding: 16px 20px;
+					padding: 14px 16px;
+					flex-direction: column;
+					align-items: stretch;
+					gap: 12px;
+				}
+				.logo {
+					justify-content: center;
+				}
+				.nav-actions {
+					display: grid;
+					grid-template-columns: 1fr;
+					gap: 10px;
+					width: 100%;
+				}
+				.nav-actions .nav-cta {
+					display: block;
+					width: 100%;
+					text-align: center;
+					padding: 12px 14px;
+					line-height: 1.3;
+					white-space: normal;
+				}
+				.hero-ctas {
+					width: 100%;
+					flex-direction: column;
+				}
+				.hero-ctas .btn-primary,
+				.hero-ctas .btn-secondary,
+				.events-cta .btn-primary,
+				.threat-section .nav-cta {
+					display: block;
+					width: 100%;
+					text-align: center;
 				}
 				.hero {
 					grid-template-columns: 1fr;
-					padding: 120px 20px 60px;
+					padding: 178px 20px 60px;
 					gap: 40px;
 				}
 				.hero::before {
 					display: none;
 				}
 				.stats {
-					grid-template-columns: repeat(2, 1fr);
+					grid-template-columns: 1fr;
 					padding: 48px 20px;
 				}
 				.covers-section,
@@ -1801,7 +1838,7 @@
 						style="width: 100px; height: auto" />
 				</picture>
 			</a>
-			<div style="display: flex; align-items: center; gap: 30px">
+			<div class="nav-actions">
 				<!-- <a href="#podcast" class="nav-podcast">BREACH POINT: <span>a Fenix24 Podcast</span></a> -->
 				<a
 					href="#"
