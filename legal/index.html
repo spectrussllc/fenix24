@@ -296,6 +296,72 @@
 				gap: 16px;
 				flex-wrap: wrap;
 			}
+			.scroll-cue {
+				position: absolute;
+				left: 50%;
+				bottom: 22px;
+				transform: translateX(-50%);
+				display: inline-flex;
+				align-items: center;
+				text-decoration: none;
+				color: var(--flame);
+				transition:
+					opacity 0.25s ease,
+					color 0.25s ease,
+					transform 0.25s ease;
+				z-index: 2;
+			}
+			.scroll-cue-arrow {
+				width: 20px;
+				height: 68px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				animation: scrollCueFloat 1.8s ease-in-out infinite;
+				transition: transform 0.25s ease;
+			}
+			.scroll-cue-arrow svg {
+				width: 18px;
+				height: 64px;
+				stroke: currentColor;
+				stroke-width: 2.2;
+				fill: none;
+				stroke-linecap: round;
+				stroke-linejoin: round;
+				filter: drop-shadow(0 0 14px rgba(232, 115, 64, 0.26))
+					drop-shadow(0 0 30px rgba(189, 91, 49, 0.14));
+				transition: filter 0.25s ease;
+			}
+			.scroll-cue:hover,
+			.scroll-cue:focus-visible {
+				color: #f08a5d;
+				transform: translateX(-50%) translateY(-2px);
+			}
+			.scroll-cue:hover .scroll-cue-arrow,
+			.scroll-cue:focus-visible .scroll-cue-arrow {
+				transform: scale(1.08);
+			}
+			.scroll-cue:hover .scroll-cue-arrow svg,
+			.scroll-cue:focus-visible .scroll-cue-arrow svg {
+				filter: drop-shadow(0 0 18px rgba(240, 138, 93, 0.42))
+					drop-shadow(0 0 36px rgba(189, 91, 49, 0.2));
+			}
+			.scroll-cue.is-hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
+			#stats {
+				scroll-margin-top: 110px;
+			}
+			@keyframes scrollCueFloat {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(7px);
+				}
+			}
 			.btn-primary {
 				background: var(--gold);
 				color: var(--dark);
@@ -1651,6 +1717,12 @@
 					width: 100%;
 					justify-content: center;
 				}
+				.scroll-cue {
+					bottom: 10px;
+				}
+				#stats {
+					scroll-margin-top: 90px;
+				}
 				.exit-intent-actions {
 					grid-template-columns: 1fr;
 				}
@@ -1774,6 +1846,20 @@
 					>
 				</div>
 			</div>
+			<a
+				href="#stats"
+				class="scroll-cue"
+				id="scrollCue"
+				aria-label="Scroll down to view more content">
+				<span class="scroll-cue-arrow">
+					<svg
+						viewBox="0 0 24 76"
+						aria-hidden="true">
+						<path d="M12 6v56" />
+						<path d="M7 58l5 9 5-9" />
+					</svg>
+				</span>
+			</a>
 
 			<!-- VIDEO CARD -->
 			<!--
@@ -1853,7 +1939,9 @@
 		</section>
 
 		<!-- STATS -->
-		<div class="stats">
+		<div
+			id="stats"
+			class="stats">
 			<div class="stat">
 				<div class="stat-number">$5.08MM</div>
 				<div class="stat-label">
@@ -2681,6 +2769,24 @@
 
 				mobileQuery.addEventListener("change", function (e) {
 					if (!e.matches) closeAll();
+				});
+			})();
+
+			(function () {
+				var scrollCue = document.getElementById("scrollCue");
+				if (!scrollCue) return;
+
+				function updateScrollCue() {
+					if (window.scrollY > 24) {
+						scrollCue.classList.add("is-hidden");
+					} else {
+						scrollCue.classList.remove("is-hidden");
+					}
+				}
+
+				updateScrollCue();
+				window.addEventListener("scroll", updateScrollCue, {
+					passive: true,
 				});
 			})();
 
